@@ -3,7 +3,6 @@ import { StyleSheet, View, Platform, KeyboardAvoidingView } from 'react-native';
 //Importing Gifted Chat library for Chat UI
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 
-
 export default function Chat(props) {
 	let { name, color } = props.route.params;
 	const [messages, setMessages] = useState([]);
@@ -47,14 +46,16 @@ export default function Chat(props) {
 
 	return (
 		<View style={[{ backgroundColor: color }, styles.container]}>
-			<GiftedChat>
+			<GiftedChat
 				renderBubble={renderBubble.bind()}
 				messages={messages}
 				onSend={messages => onSend(messages)}
-				user={{ _id: 1 }}
-			</GiftedChat>
+				user={{
+					_id: 1,
+				}}
+			/>
 
-			{/* Avoid Android Keyboards from overlapping the chat bubbles on older devices */}
+			{/* Avoid keyboard to overlap text messages on older Andriod versions */}
 			{Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null}
 		</View>
 	)
