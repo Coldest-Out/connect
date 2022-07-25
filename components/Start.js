@@ -40,18 +40,30 @@ export default function Start(props) {
 						<TouchableOpacity
 							style={[{ backgroundColor: colors.black }, styles.colorbutton]}
 							onPress={() => setColor(colors.black)}
+							accessibilityLabel="Black chat background option"
+							accessibilityHint="Chat background coloring options"
+							accessibilityRole="button"
 						/>
 						<TouchableOpacity
 							style={[{ backgroundColor: colors.purple }, styles.colorbutton]}
 							onPress={() => setColor(colors.purple)}
+							accessibilityLabel="Dark Purple chat background option"
+							accessibilityHint="Chat background coloring options"
+							accessibilityRole="button"
 						/>
 						<TouchableOpacity
 							style={[{ backgroundColor: colors.grey }, styles.colorbutton]}
 							onPress={() => setColor(colors.grey)}
+							accessibilityLabel="Grey chat background option"
+							accessibilityHint="Chat background coloring options"
+							accessibilityRole="button"
 						/>
 						<TouchableOpacity
 							style={[{ backgroundColor: colors.green }, styles.colorbutton]}
 							onPress={() => setColor(colors.green)}
+							accessibilityLabel="Emerald green chat background option"
+							accessibilityHint="Chat background coloring options"
+							accessibilityRole="button"
 						/>
 					</View>
 
@@ -71,6 +83,8 @@ export default function Start(props) {
 					</Pressable>
 				</View>
 			</ImageBackground>
+			{/* Avoid Android Keyboards from overlapping the information above it on older devices */}
+			{Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null}
 		</View>
 	)
 }
