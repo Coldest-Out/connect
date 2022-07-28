@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { GiftedChat, Bubble } from 'react-native-gifted-chat'
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet, InputToolbar } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import NetInfo from '@react-native-community/netinfo';
 
 //Firestore Database
 const firebase = require('firebase');
@@ -40,13 +42,37 @@ class Chat extends Component {
 
 		this.referenceMessagesUser = null;
 	}
+
+	// Gets messages that are stored in the storage.
+	async getMessages() {
+		let messages = '';
+		try {
+			messages = await AsyncStorage.getItem('messages') || [];
+			this.setState({
+				messages: JSON.parse(messages)
+			});
+		} catch (error) {
+			console.log(error.messages);
+		}
+	};
+
 	componentDidMount() {
+		this.getMessages();
 
 		let { name } = this.props.route.params;
 		this.props.navigation.setOptions({ title: name });
 
 		// Reference to load messages via Firebase
 		this.referenceChatMessages = firebase.firestore().collection("messages");
+
+		// Checks to see if the user is online or offline
+		NetInfo.fetch().then(connection => {
+			if (connection.isConnected) {
+				console.log('offline');
+			} else {
+				console.log('offline');
+			}
+		});
 
 		// Authenticates user via Firebase
 		this.authUnsubscribe = firebase.auth().onAuthStateChanged((user) => {
@@ -95,7 +121,29 @@ class Chat extends Component {
 			messages: GiftedChat.append(previousState.messages, messages),
 		}), () => {
 			this.addMessages();
+			this.saveMessages();
 		});
+	}
+
+	// Save stored messages
+	async saveMessages() {
+		try {
+			await AsyncStorage.setItem('messages', JSON.stringify(this.state.messages));
+		} catch (error) {
+			console.log(error.message);
+		}
+	}
+
+	// Delete stored messages
+	async deleteMessages() {
+		try {
+			await AsyncStorage.removeItem('messages');
+			this.setState({
+				messages: []
+			})
+		} catch (error) {
+			console.log(error.message);
+		}
 	}
 
 	onCollectionUpdate = (querySnapshot) => {
@@ -114,6 +162,18 @@ class Chat extends Component {
 		this.setState({
 			messages: messages
 		});
+	}
+
+	// Disables the ability to compose messages while offline
+	renderInputToolbar(props) {
+		if (this.state.isConnected == false) {
+		} else {
+			return (
+				<InputToolbar
+					{...props}
+				/>
+			);
+		}
 	}
 
 	// Customize the color of the sender bubble
