@@ -31,6 +31,7 @@ class Chat extends Component {
 				name: '',
 				avatar: '',
 			},
+			isConnected: false
 		}
 
 		// initializes the Firestore app
@@ -68,6 +69,7 @@ class Chat extends Component {
 		// Checks to see if the user is online or offline
 		NetInfo.fetch().then(connection => {
 			if (connection.isConnected) {
+				this.setState({ isConnected: true });
 				console.log('offline');
 			} else {
 				console.log('offline');
@@ -92,6 +94,8 @@ class Chat extends Component {
 				.firestore()
 				.collection("messages")
 				.where("uid", '==', this.state.uid);
+
+			this.saveMessages();
 			this.unsubscribe = this.referenceChatMessages
 				.orderBy("createdAt", "desc")
 				.onSnapshot(this.onCollectionUpdate);
@@ -156,7 +160,11 @@ class Chat extends Component {
 				_id: data._id,
 				text: data.text,
 				createdAt: data.createdAt.toDate(),
-				user: data.user,
+				user: {
+					_id: data.user._id,
+					name: data.user.name,
+					avatar: data.user.avatar
+				},
 			});
 		});
 		this.setState({
