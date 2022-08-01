@@ -1,78 +1,102 @@
-# React Native Chat app
-
-## Description
-The aim of this project is to build a chat app for mobile devices using React Native. The app will provide users with a chat interface and options to share images and their location.
-
-### User Stories
-* As a new user, I want to be able to easily enter a chat room so I can quickly start talking to my friends and family.
-* As a user, I want to be able to send messages to my friends and family members to exchange the latest news.
+# Chat-App
+Chat App is a mobile application using React Native. The app will provide users with a chat interface and options to share images and their location.
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+      </li>
+    <li><a href="#Dependencies">Dependencies</a></li>
+  </ol>
+</details>
+<img width="1440" alt="Screenshot 2022-06-08 at 16 23 40" src="https://user-images.githubusercontent.com/83247314/172641830-c9fe1d27-f42c-4fd1-a7e1-2dd0efa1dab9.png">
+<!-- ABOUT THE PROJECT -->
+## About The Project
+#### User Stories
+* As a new user, I want to be able to easily enter a chat room so I can quickly start talking to my
+friends and family.
+* As a user, I want to be able to send messages to my friends and family members to exchange
+the latest news.
 * As a user, I want to send images to my friends to show them what I’m currently doing.
 * As a user, I want to share my location with my friends to show them where I am.
 * As a user, I want to be able to read my messages offline so I can reread conversations at any
 time.
 * As a user with a visual impairment, I want to use a chat app that is compatible with a screen
 reader so that I can engage with a chat interface.
-
-### Key Features
-* A page where users can enter their name and choose a background color for the chat screen before joining the chat.
+#### Key Features
+* A page where users can enter their name and choose a background color for the chat screen
+before joining the chat.
 * A page displaying the conversation, as well as an input field and submit button.
 * The chat must provide users with two additional communication features: sending images
 and location data.
 * Data gets stored online and offline.
+<p align="right">(<a href="#top">back to top</a>)</p>
+### Built With
+#### Frameworks/libraries
+* [React.js](https://reactjs.org/)
+* [Expo](https://expo.dev/)
+#### Database
+* [Firebase Cloud Storage](https://firebase.google.com/)
+<p align="right">(<a href="#top">back to top</a>)</p>
+<!-- GETTING STARTED -->
+## Getting Started
+### Prerequisites
+* npm
+  ```sh
+  npm install npm@latest -g
+  ```
+  * This command installs all the latest required  dependecies.
+ 
+ ### Installation
+ 
+ 1) Open your terminal and type
+$ git clone {https://github.com/FotisGogos/Chat-App.git}
+This clones the repo
+ 
+ 2) Install expo-cli 
+  
+npm install --global expo-cli
+ ### Launch Project
+To launch the project you can use Xcode(Mac), Android Studio (Windows) OR your can install the expo app to your phone.
+* App store link(Apple) => https://apps.apple.com/de/app/expo-go/id982107779
+* Google play(Android) => https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en_US&gl=US
+* Using the command  ``` expo start ``` will initialize the project
+<p align="right">(<a href="#top">back to top</a>)</p>
+<!-- DEPENDENCIES -->
+##  Dependencies
+ @react-native-async-storage/async-storage": "~1.15.0",
+   * "@react-native-community/masked-view": "^0.1.11",
+   * "@react-native-community/netinfo": "7.1.3",
+   * "@react-navigation/native": "^6.0.10",
+   * "@react-navigation/stack": "^6.2.1",
+   * "expo": "~44.0.0",
+   * "expo-status-bar": "~1.2.0",
+	 * "firebase": "^7.9.0",
+   * "firebase": "^7.9.0",
+   * "react": "17.0.1",
+   * "react-dom": "17.0.1",
+   * "react-native": "0.64.3",
+   * "react-native-gesture-handler": "~2.1.0",
+   * "react-native-gifted-chat": "^0.16.3",
+   * "react-native-reanimated": "~2.3.1",
+   * "react-native-safe-area-context": "3.3.2",
+   * "react-native-screens": "~3.10.1",
+   * "react-native-web": "0.17.1",
+   * "react-navigation": "^4.4.4",
+   * "expo-image-picker": "~12.0.1",
+   * "expo-location": "~14.0.1",
+   * "expo-permissions": "~13.1.0",
+   * "react-native-maps": "0.29.4"
 
-
-### What technology did I use and why?
-
-I chose to create the mobile application using **React Native** due to the following considerations:
-* Develop and maintain the same codebase across different OS (iOS and Android)
-* Increased performance compared to Hybrid Apps as UI is rendered natively
-* Possibility to access device's APIs (camera, microphone, ...) (compared to PWA)
-* Use existing skills in JavaScript and React, no need to learn another programming language
-* Large and active community
-
-Further, I'm using **XCode** as an iOS simulator and **Android Studio** as an Android emulator.
-
-I use **Expo** as development environment to develop and test the app.
-
-I use the **React Navigation** third party library to navigate between screens.
-
-
-## Development Process for the chat application
-### Set up Expo as Development Environment
-1. Install Expo Command Line Interface
-```bash
-npm install expo-cli --global
-```
-
-2. Create new Expo project in projects directory
-```bash
-expo init [project-name]
-```
-
-3. Start expo by navigating to project folder & running
-```bash
-npm start
-```
-
-### Install React Navigation library to navigate between screens
-1. Navigate to project folder and run
-```bash
-npm install react-navigation
-```
-
-2. Install necessary dependencies
-```bash
-npm install @react-navigation/native @react-navigation/stack
-expo install react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view
-```
-
-### Set up Android Studio as Android Emulator
-1. Download Android Studio
-2. Make sure 'Android Virtual Device' is installed
-3. Add Android SDK Location to ~/.zshrc file
-```bash
-export ANDROID_SDK=/Users/myuser/Library/Android/sdk
-export PATH=/Users/myuser/Library/Android/sdk/platform-tools:$PATH
-```
-4. Create virtual device and click play to start
-5. Select 'Run app on Android' in Expo to run app on virtual device
+<p align="right">(<a href="#top">back to top</a>)</p>
