@@ -1,5 +1,7 @@
 # Chat-App
+
 Chat App is a mobile application using React Native. The app will provide users with a chat interface and options to share images and their location.
+
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
@@ -20,9 +22,13 @@ Chat App is a mobile application using React Native. The app will provide users 
     <li><a href="#Dependencies">Dependencies</a></li>
   </ol>
 </details>
+
 <img width="1440" alt="Screenshot 2022-06-08 at 16 23 40" src="https://user-images.githubusercontent.com/83247314/172641830-c9fe1d27-f42c-4fd1-a7e1-2dd0efa1dab9.png">
+
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+
+
 #### User Stories
 * As a new user, I want to be able to easily enter a chat room so I can quickly start talking to my
 friends and family.
@@ -34,6 +40,7 @@ the latest news.
 time.
 * As a user with a visual impairment, I want to use a chat app that is compatible with a screen
 reader so that I can engage with a chat interface.
+
 #### Key Features
 * A page where users can enter their name and choose a background color for the chat screen
 before joining the chat.
@@ -41,40 +48,61 @@ before joining the chat.
 * The chat must provide users with two additional communication features: sending images
 and location data.
 * Data gets stored online and offline.
+
 <p align="right">(<a href="#top">back to top</a>)</p>
+
 ### Built With
+
 #### Frameworks/libraries
+
 * [React.js](https://reactjs.org/)
 * [Expo](https://expo.dev/)
+
 #### Database
+
 * [Firebase Cloud Storage](https://firebase.google.com/)
+
+
 <p align="right">(<a href="#top">back to top</a>)</p>
+
 <!-- GETTING STARTED -->
 ## Getting Started
+
 ### Prerequisites
+
 * npm
   ```sh
   npm install npm@latest -g
   ```
   * This command installs all the latest required  dependecies.
  
- ### Installation
+### Installation
  
- 1) Open your terminal and type
+1) Open your terminal and type
+
 $ git clone {https://github.com/FotisGogos/Chat-App.git}
+
 This clones the repo
  
- 2) Install expo-cli 
+2) Install expo-cli 
   
 npm install --global expo-cli
- ### Launch Project
+
+### Launch Project
+
 To launch the project you can use Xcode(Mac), Android Studio (Windows) OR your can install the expo app to your phone.
+
 * App store link(Apple) => https://apps.apple.com/de/app/expo-go/id982107779
 * Google play(Android) => https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en_US&gl=US
+
 * Using the command  ``` expo start ``` will initialize the project
+
 <p align="right">(<a href="#top">back to top</a>)</p>
+
 <!-- DEPENDENCIES -->
 ##  Dependencies
+
+
  @react-native-async-storage/async-storage": "~1.15.0",
    * "@react-native-community/masked-view": "^0.1.11",
    * "@react-native-community/netinfo": "7.1.3",
