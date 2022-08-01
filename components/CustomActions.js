@@ -128,13 +128,12 @@ export default class CustomActions extends React.Component {
 				switch (buttonIndex) {
 					case 0:
 						console.log('user wants to pick an image');
-						return this.pickImage();
+						return;
 					case 1:
 						console.log('user wants to take a photo');
-						return this.takePhoto();
+						return;
 					case 2:
 						console.log('user wants to get their location');
-						return this.getLocation();
 					default:
 				}
 			},
