@@ -1,24 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
-//import permissions and imagepicker
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from "expo-location";
-
-
-//import necessary components from react-native
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-
-import firebase from "firebase";
 import "firebase/firestore";
-
-
+import firebase from "firebase";
 
 export default class CustomActions extends React.Component {
 
-	// * Upload images to firebase
-
+	//Upload images to firestore
 	imageUpload = async (uri) => {
 		const blob = await new Promise((resolve, reject) => {
 			const xhr = new XMLHttpRequest();
@@ -45,19 +36,17 @@ export default class CustomActions extends React.Component {
 		return await snapshot.ref.getDownloadURL();
 	}
 
-	//* Let the user pick an image from the device's image library
+	//to select an existing picture
 
-	pickImage = async () => {
-		// expo permission
-		const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+	imagePicker = async () => {
+		const { status } = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
+
 		try {
 			if (status === 'granted') {
-				// pick image
-				const result = await ImagePicker.launchImageLibraryAsync({
-					mediaTypes: ImagePicker.MediaTypeOptions.Images,  // only images are allowed
+				let result = await ImagePicker.launchImageLibraryAsync({
+					mediaTypes: ImagePicker.MediaTypeOptions.Images,
 				}).catch(error => console.log(error));
 
-				// canceled process
 				if (!result.cancelled) {
 					const imageUrl = await this.imageUpload(result.uri);
 					this.props.onSend({ image: imageUrl });
@@ -68,10 +57,10 @@ export default class CustomActions extends React.Component {
 		}
 	}
 
-	//* Let the user take a photo with device's camera
+	//to take a picture
 
 	takePhoto = async () => {
-		const { status } = await ImagePicker.requestCameraPermissionsAsync();
+		const { status } = await Permissions.askAsync(Permissions.CAMERA, Permissions.MEDIA_LIBRARY);
 
 		try {
 			if (status === 'granted') {
@@ -80,16 +69,18 @@ export default class CustomActions extends React.Component {
 				}).catch(error => console.log(error));
 
 				if (!result.cancelled) {
+
 					const imageUrl = await this.imageUpload(result.uri);
 					this.props.onSend({ image: imageUrl });
+
 				}
 			}
 		} catch (error) {
-			console.error(error.message);
+			console.error(error);
 		}
 	}
 
-	//* get the location of the user by using GPS
+	//to get user location
 
 	getLocation = async () => {
 		const { status } = await Permissions.askAsync(Permissions.LOCATION_FOREGROUND);
@@ -114,10 +105,13 @@ export default class CustomActions extends React.Component {
 		}
 	}
 
-
-
 	onActionPress = () => {
-		const options = ['Choose From Library', 'Take Picture', 'Send Location', 'Cancel'];
+		const options = [
+			"Choose From Library",
+			"Take Picture",
+			"Send Location",
+			"Cancel",
+		];
 		const cancelButtonIndex = options.length - 1;
 		this.context.actionSheet().showActionSheetWithOptions(
 			{
@@ -127,18 +121,19 @@ export default class CustomActions extends React.Component {
 			async (buttonIndex) => {
 				switch (buttonIndex) {
 					case 0:
-						console.log('user wants to pick an image');
-						return;
+						console.log("user wants to pick an image");
+						return this.imagePicker();
 					case 1:
-						console.log('user wants to take a photo');
-						return;
+						console.log("user wants to take a photo");
+						return this.takePhoto();
 					case 2:
-						console.log('user wants to get their location');
-					default:
+						console.log("user wants to get their location");
+						return this.getLocation();
 				}
-			},
+			}
 		);
 	};
+
 
 	render() {
 		return (
@@ -147,7 +142,8 @@ export default class CustomActions extends React.Component {
 				accessibilityLabel="More options"
 				accessibilityHint="Let’s you choose to send an image or your geolocation."
 				style={[styles.container]}
-				onPress={this.onActionPress}>
+				onPress={this.onActionPress}
+			>
 				<View style={[styles.wrapper, this.props.wrapperStyle]}>
 					<Text style={[styles.iconText, this.props.iconTextStyle]}>+</Text>
 				</View>
@@ -176,7 +172,8 @@ const styles = StyleSheet.create({
 		backgroundColor: 'transparent',
 		textAlign: 'center',
 	},
-});
+}
+);
 
 CustomActions.contextTypes = {
 	actionSheet: PropTypes.func,
