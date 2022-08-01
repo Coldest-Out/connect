@@ -162,7 +162,7 @@ class Chat extends Component {
 		// go through each document
 		querySnapshot.forEach((doc) => {
 			// get the QueryDocumentSnapshot's data
-			let data = doc.data();
+			var data = doc.data();
 			messages.push({
 				_id: data._id,
 				text: data.text,
@@ -172,14 +172,14 @@ class Chat extends Component {
 					name: data.user.name,
 					avatar: data.user.avatar
 				},
-				images: data.image || null,
+				image: data.image || null,
 				location: data.location || null,
 			});
 		});
 		this.setState({
-			messages: messages
+			messages: messages,
 		});
-	}
+	};
 
 	// Disables the ability to compose messages while offline
 	renderInputToolbar(props) {
